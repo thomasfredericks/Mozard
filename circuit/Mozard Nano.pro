@@ -1,25 +1,25 @@
 EAGLE AutoRouter Statistics:
 
-Job           : C:/Users/thoma_000/OneDrive/Synthesizer Designs & Circuits/Mozard (Digital Synth)/Mozard Nano/Mozard Nano.brd
+Job           : D:/tof/OneDrive/Mozard/Mozard/circuit/Mozard Nano.brd
 
-Start at      : 13:33:25 (2018-01-29)
-End at        : 13:33:26 (2018-01-29)
-Elapsed time  : 00:00:00
+Start at      : 10:06:24 (2018-05-15)
+End at        : 10:06:39 (2018-05-15)
+Elapsed time  : 00:00:14
 
-Signals       :    28   RoutingGrid: 25 mil  Layers: 2
-Connections   :    44   predefined:  43 ( 4 Vias )
+Signals       :    31   RoutingGrid: 8.5 mil  Layers: 2
+Connections   :    50   predefined:  49 ( 5 Vias )
 
-Router memory :   70692
+Router memory :   581080
 
-Passname          :     Route Optimize1 Optimize2 Optimize3 Optimize4
+Passname          : TopRouter     Route Optimize1 Optimize2 Optimize3 Optimize4
 
-Time per pass     :  00:00:00  00:00:00  00:00:00  00:00:00  00:00:00
-Number of Ripups  :         0         0         0         0         0
-max. Level        :         1         0         0         0         0
-max. Total        :         0         0         0         0         0
+Time per pass     :  00:00:14  00:00:00  00:00:00  00:00:00  00:00:00  00:00:00
+Number of Ripups  :         0         0         0         0         0         0
+max. Level        :         0         0         0         0         0         0
+max. Total        :         0         0         0         0         0         0
 
-Routed            :         0         0         0         0         0
-Vias              :         0         0         0         0         0
-Resolution        :    97.7 %    97.7 %    97.7 %    97.7 %    97.7 %
+Routed            :         0         1         1         1         1         1
+Vias              :         0         1         1         1         1         1
+Resolution        :    98.0 %   100.0 %   100.0 %   100.0 %   100.0 %   100.0 %
 
-Final             : 97.7% finished
+Final             : 100.0% finished
