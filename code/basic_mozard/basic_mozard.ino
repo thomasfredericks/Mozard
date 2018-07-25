@@ -30,6 +30,8 @@ int gain;
 unsigned int attack_ms = 10;
 unsigned int decay_ms = 200;
 
+unsigned int blinkCounter = 0;
+
 void setup() {
 
   Serial.begin(57600);
@@ -37,10 +39,19 @@ void setup() {
 
   mozard.setup();
 
+  pinMode(13,OUTPUT);
+  
+
 }
 
 
 void updateControl() {
+
+  blinkCounter++;
+  if ( blinkCounter > 250 ) {
+    digitalWrite(13,!digitalRead(13));
+    blinkCounter = 0;
+  }
 
   mozard.updateControl();
 
