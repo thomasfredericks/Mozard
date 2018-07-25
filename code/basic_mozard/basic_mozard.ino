@@ -18,7 +18,7 @@
 #include <mozzi_midi.h>
 #include <tables/sin2048_int8.h> // sine table for oscillator
 
-#include "MozardNano.h"
+#include "Mozard.h"
 
 // powers of 2 please
 #define CONTROL_RATE 256

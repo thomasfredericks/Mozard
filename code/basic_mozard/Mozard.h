@@ -38,6 +38,7 @@ class MozardNano {
     bool keys[14]; // 12 keys + 2 buttons
 
     uint8_t keyPins[14] = {A1, A5, A4, A3, A2, 12, 11, 8, 7, 6, 5, 4, 2, 3};
+    uint8_t thresholds[14] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     uint8_t keyIndex = 0;
     int keyJustPressed = -1;
     int keyJustReleased = -1;
@@ -45,9 +46,11 @@ class MozardNano {
 
     char octave = 5;
 
-    int analogValue;
+    bool analogReading = 0;
+    int analogValue0;
+    int analogValue1;
 
-    bool readCapacitivePin(int pinToMeasure) {
+    uint8_t readCapacitivePin(int pinToMeasure) {
       // Variables used to translate from Arduino to AVR pin naming
       volatile uint8_t* port;
       volatile uint8_t* ddr;
@@ -145,7 +148,7 @@ class MozardNano {
       *port &= ~(bitmask);
       *ddr  |= bitmask;
 
-      return cycles > 7;
+      return cycles ;
     }
 
 
@@ -162,19 +165,28 @@ class MozardNano {
 
       randSeed(); // reseed the random generator for different results each time the sketch runs
 
-      analogValue = mozziAnalogRead(7);
+     
+
+      analogValue1 = mozziAnalogRead(6);
+      analogValue0 = mozziAnalogRead(7);
     }
 
 
     void updateControl() {
 
-      analogValue = mozziAnalogRead(7);
+      if ( analogReading ) {
+        analogValue0 = mozziAnalogRead(7);
+      } else {
+         analogValue1 = mozziAnalogRead(6);
+      }
+      analogReading = !analogReading;
+      
 
       keyJustPressed = keyJustReleased = -1;
       buttonJustPressed = -1;
 
 
-      bool pressed = readCapacitivePin(keyPins[keyIndex]);
+      bool pressed = readCapacitivePin(keyPins[keyIndex]) > 3;
 
 
       if ( pressed ) {
@@ -223,7 +235,11 @@ class MozardNano {
 
 
     int getPot0() {
-      return analogValue;
+      return analogValue0;
+    }    
+    
+    int getPot1() {
+      return analogValue1;
     }
 
     void setOctave( char newOctave) {
