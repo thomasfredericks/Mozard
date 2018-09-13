@@ -23,7 +23,7 @@ unsigned int blinkCounter = 0;
 boolean arpeggiatorRunning = false;
 
 #include "Arpeggiator.h"
-
+Arpeggiator arp = Arpeggiator();
 
 void setup() {
 
@@ -59,7 +59,7 @@ void updateControl() {
   if ( mozard.buttonAPressed() ) {
     arpeggiatorRunning = !arpeggiatorRunning;
     if ( !arpeggiatorRunning ) {
-      arpClear();
+      arp.clear();
       digitalWrite(13, HIGH);
     }
   }
@@ -68,17 +68,18 @@ void updateControl() {
 
     if ( mozard.aKeyIsPressed() ) {
       Serial.println( mozard.getKeyPressed() + 60 ) ;
-      arpAddKey( mozard.getKeyPressed() );
+      arp.addKey( mozard.getKeyPressed() );
     }
 
     if ( mozard.aKeyIsReleased() ) {
       Serial.println( mozard.getKeyReleased() + 90 ) ;
-      arpRemoveKey( mozard.getKeyReleased() );
+      arp.removeKey( mozard.getKeyReleased() );
     }
 
-    if ( arpCheck() ) {
-      playNote( mozard.keyToNote( arpGetKey() ));
+    if ( arp.update() ) {
       digitalWrite(13, !digitalRead(13));
+      if ( arp.available() ) playNote( mozard.keyToNote( arp.getKey() ));
+      
     }
     
   } else {
