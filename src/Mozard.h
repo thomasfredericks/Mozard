@@ -29,7 +29,7 @@
 // D2
 
 /*
-    IMPORTANT: this sketch requires Mozzi/mozzi_config.h to be
+    IMPORTANT: Mozard requires mozzi_config.h to be
     be changed from STANDARD mode to HIFI.
     In Mozz/mozzi_config.h, change
     #define AUDIO_MODE STANDARD
@@ -71,9 +71,9 @@ class MozardNano {
     uint8_t keyPins[13] = {A5, A4, A3, A2, 12, 11, 8, 7, 6, 5, 4, 3,2};
     uint8_t thresholds[13] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     uint8_t keyIndex = 0;
-    int keyJustPressed = -1;
-    int keyJustReleased = -1;
-    int buttonJustPressed = -1;
+    uint8_t keyJustPressed = 0;
+    uint8_t keyJustReleased = 0;
+    uint8_t buttonJustPressed = 0;
 
     char octave = 5;
 
@@ -214,8 +214,8 @@ class MozardNano {
       analogReading = ( analogReading + 1 ) % MOZARD_ANALOG_PINS;
       
 
-      keyJustPressed = keyJustReleased = -1;
-      buttonJustPressed = -1;
+      keyJustPressed = keyJustReleased = 0;
+      buttonJustPressed = 0;
 
 
       bool pressed = readCapacitivePin(keyPins[keyIndex]) > 3;
@@ -223,13 +223,13 @@ class MozardNano {
 
       if ( pressed ) {
         if ( keys[keyIndex] == 0 ) {
-          if ( keyIndex < 12 ) keyJustPressed = keyIndex;
-          else buttonJustPressed = keyIndex - 12;
+          if ( keyIndex < 12 ) keyJustPressed = keyIndex + 1;
+          else buttonJustPressed = keyIndex - 11;
         }
         keys[keyIndex] = 1;
       } else {
         if ( keys[keyIndex] == 1 ) {
-          if ( keyIndex < 12 ) keyJustReleased = keyIndex;
+          if ( keyIndex < 12 ) keyJustReleased = keyIndex + 1;
         }
         keys[keyIndex] = 0;
       }
@@ -241,24 +241,36 @@ class MozardNano {
     }
 
     bool aKeyIsPressed() {
-      return keyJustPressed > -1;
+      return keyJustPressed > 0;
     }
 
     bool aKeyIsReleased() {
-      return keyJustReleased > -1;
+      return keyJustReleased > 0;
+    }
+
+    uint8_t getKeyPressed() {
+    	return keyJustPressed;
+    }
+
+     uint8_t getKeyReleased() {
+    	return keyJustReleased;
+    }
+
+    uint8_t  keyToNote(uint8_t  key) {
+    	return octave * 11 + key;
     }
 
 
     uint8_t getNotePressed() {
-      return octave * 12 + keyJustPressed;
+      return keyToNote(keyJustPressed);
     }
 
     uint8_t getNoteReleased() {
-      return octave * 12 + keyJustReleased;
+      return keyToNote(keyJustReleased);
     }
 
     bool buttonAPressed() {
-      return buttonJustPressed == 0;
+      return buttonJustPressed == 1;
     }
 
     int getPotA() {
