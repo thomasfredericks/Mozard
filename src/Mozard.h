@@ -257,7 +257,7 @@ class MozardNano {
     }
 
     uint8_t  keyToNote(uint8_t  key) {
-    	return octave * 11 + key;
+    	return octave * 12 + key -1;
     }
 
 
@@ -286,7 +286,7 @@ class MozardNano {
     }
 
     void setOctave( char newOctave) {
-      octave = constrain(newOctave, 0, 10);
+      octave = constrain(newOctave, 1, 10);
 
     }
 
