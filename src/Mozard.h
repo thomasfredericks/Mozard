@@ -40,15 +40,15 @@
 
 */
 
-
+// powers of 2 please
+#define CONTROL_RATE 256
 
 #include "MozziGuts.h"
 #include "mozzi_rand.h"
 #include "mozzi_midi.h"
 
 
-// powers of 2 please
-#define CONTROL_RATE 256
+
 
 class MozardNano {
 
