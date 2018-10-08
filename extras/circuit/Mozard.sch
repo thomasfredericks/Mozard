@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.1.1">
+<eagle version="9.1.3">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -5134,7 +5134,7 @@ Commonly used for small ceramic capacitors. Like our 0.1uF (http://www.sparkfun.
 <part name="R7" library="adafruit" deviceset="R-US_" device="0204/7" value="3.9k"/>
 <part name="VOLUME" library="SparkFun-Electromechanical" deviceset="POT" device="ALPS-KIT" value="VOLUME"/>
 <part name="R4" library="adafruit" deviceset="R-US_" device="0204/7" value="270"/>
-<part name="C4" library="SparkFun-Capacitors" deviceset="0.1UF-50V-20%(PTH)" device="KIT-EZ" value="100nF"/>
+<part name="C4" library="SparkFun-Capacitors" deviceset="0.1UF-50V-20%(PTH)" device="KIT-EZ" value="100nF/104"/>
 <part name="GND2" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="A7" library="SparkFun-Electromechanical" deviceset="POT" device="ALPS-KIT" value="A7"/>
 <part name="GND7" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
@@ -5153,8 +5153,8 @@ Commonly used for small ceramic capacitors. Like our 0.1uF (http://www.sparkfun.
 <part name="C_AMP" library="Mitch-parts" deviceset="CPOL-RADIAL-10UF-25V" device="" value="100uF"/>
 <part name="P+1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="V+" device=""/>
 <part name="U$1" library="TOF" deviceset="NANO" device=""/>
-<part name="C1" library="SparkFun-Capacitors" deviceset="0.1UF-50V-20%(PTH)" device="KIT-EZ" value="4.7nF"/>
-<part name="C2" library="SparkFun-Capacitors" deviceset="0.1UF-50V-20%(PTH)" device="KIT-EZ" value="10uF"/>
+<part name="C1" library="SparkFun-Capacitors" deviceset="0.1UF-50V-20%(PTH)" device="KIT-EZ" value="4.7nF/472"/>
+<part name="C2" library="SparkFun-Capacitors" deviceset="0.1UF-50V-20%(PTH)" device="KIT-EZ" value="10uF/106"/>
 <part name="TOUCH1" library="TOF" deviceset="PCB-TOUCHPAD2" device=""/>
 <part name="GND3" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="A6" library="SparkFun-Electromechanical" deviceset="POT" device="ALPS-KIT" value="A6"/>
