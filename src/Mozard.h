@@ -216,9 +216,13 @@ class MozardNano {
 
       keyJustPressed = keyJustReleased = 0;
       buttonJustPressed = 0;
-
-
-      bool pressed = readCapacitivePin(keyPins[keyIndex]) > 3;
+      
+      uint8_t capacitance = readCapacitivePin(keyPins[keyIndex]);
+      boolean pressed = capacitance > 2;
+      Serial.print(keyIndex);
+      Serial.write(32);
+      Serial.println(capacitance);
+      
 
 
       if ( pressed ) {
