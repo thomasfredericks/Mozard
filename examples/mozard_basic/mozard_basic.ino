@@ -1,6 +1,8 @@
 // MOZARD HARDWARE AND MOZZI SETUP
 #include <Mozard.h>
-
+#include <mozzi_midi.h>
+#include <MIDI.h>
+MIDI_CREATE_DEFAULT_INSTANCE();
 
 // MOZZI STUFF
 #include <Oscil.h>
@@ -15,21 +17,36 @@ int gain;
 unsigned int blinkCounter = 0;
 
 
-
-
 boolean arpeggiatorRunning = false;
 
 #include "Arpeggiator.h"
 Arpeggiator arp = Arpeggiator();
 
+void handleNoteOn(byte channel, byte pitch, byte velocity) {
+  playNote(pitch);
+}
+
+void handleNoteOff(byte channel, byte pitch, byte velocity) {
+  
+}
+
+
 void setup() {
 
-  Serial.begin(57600);
+  //Serial.begin(57600);
 
   mozard.setup();
 
   pinMode(13, OUTPUT);
   digitalWrite(13, HIGH);
+
+  MIDI.setHandleNoteOn(handleNoteOn);  // Put only the name of the function
+
+  // Do the same for NoteOffs
+  MIDI.setHandleNoteOff(handleNoteOff);
+
+  // Initiate MIDI communications, listen to all channels
+  MIDI.begin(MIDI_CHANNEL_OMNI);
 
 
 }
@@ -71,12 +88,12 @@ void updateControl() {
   if ( arpeggiatorRunning ) {
 
     if ( mozard.aKeyIsPressed() ) {
-      Serial.println( mozard.getKeyPressed() + 60 ) ;
+      //Serial.println( mozard.getKeyPressed() + 60 ) ;
       arp.addKey( mozard.getKeyPressed() );
     }
 
     if ( mozard.aKeyIsReleased() ) {
-      Serial.println( mozard.getKeyReleased() + 90 ) ;
+     // Serial.println( mozard.getKeyReleased() + 90 ) ;
       arp.removeKey( mozard.getKeyReleased() );
     }
 
@@ -88,7 +105,7 @@ void updateControl() {
     
   } else {
     if ( mozard.aKeyIsPressed() ) {
-      Serial.println( mozard.getKeyPressed() ) ;
+      //Serial.println( mozard.getKeyPressed() ) ;
       playNote( mozard.getNotePressed() );
     }
   }
@@ -103,5 +120,6 @@ int updateAudio() {
 
 // DO NOT CHANGE ANYTHING AFTER THIS
 void loop() {
+  MIDI.read();
   audioHook();
 }
