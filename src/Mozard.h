@@ -219,9 +219,9 @@ class MozardNano {
       
       uint8_t capacitance = readCapacitivePin(keyPins[keyIndex]);
       boolean pressed = capacitance > 2;
-      Serial.print(keyIndex);
-      Serial.write(32);
-      Serial.println(capacitance);
+      //Serial.print(keyIndex);
+      //Serial.write(32);
+     // Serial.println(capacitance);
       
 
 
