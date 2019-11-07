@@ -48,10 +48,31 @@
 // powers of 2 please
 #define CONTROL_RATE 256
 
+#include <mozzi_midi.h>
+
+#ifndef NOMIDI
+
+#include <MIDI.h>
+MIDI_CREATE_DEFAULT_INSTANCE();
+
+#endif
+
 #include "MozziGuts.h"
 #include "mozzi_rand.h"
-#include "mozzi_midi.h"
 
+
+/**
+ * @todo RE-ADD MIDI INPUT SUPPORT
+ */
+#ifndef NOMIDI
+void handleNoteOn(byte channel, byte pitch, byte velocity) {
+  playNote(pitch);
+}
+
+void handleNoteOff(byte channel, byte pitch, byte velocity) {
+  
+}
+#endif
 
 
 
@@ -193,6 +214,13 @@ class MozardNano {
 
 
   public:
+   void loop() {
+		#ifndef NOMIDI
+		MIDI.read();
+		#endif
+		audioHook();
+   }
+
     void setup() {
       
       startMozzi(CONTROL_RATE);
@@ -209,6 +237,19 @@ class MozardNano {
       for ( byte i = 0 ; i <  MOZARD_ANALOG_PINS ; i++ ) {
         analogValues[i] = mozziAnalogRead(analogPins[i]);
       }
+
+      #ifndef NOMIDI
+
+	   MIDI.setHandleNoteOn(handleNoteOn);  // Put only the name of the function
+
+	  // Do the same for NoteOffs
+	  MIDI.setHandleNoteOff(handleNoteOff);
+
+	  // Initiate MIDI communications, listen to all channels
+	  MIDI.begin(MIDI_CHANNEL_OMNI);
+	  #else
+	  Serial.begin(57600);
+	  #endif
       
     }
 
