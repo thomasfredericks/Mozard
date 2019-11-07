@@ -1,13 +1,16 @@
+
+WARNING : ON OLD BOARD LM386 IS SUPER HOT! WHY?
+
+
+
 // MOZARD HARDWARE AND MOZZI SETUP
 // ===============================
 // Increase MOZARD_TOUCH_SENSITIVITY if your keyboard is too sensitive
 #define MOZARD_TOUCH_SENSITIVITY 3
+#include "Mozard_additionnal.h" // TO BE PUT IN Mozard.h
 #include <Mozard.h>
 
 
-#include <mozzi_midi.h>
-#include <MIDI.h>
-MIDI_CREATE_DEFAULT_INSTANCE();
 
 // MOZZI STUFF
 #include <Oscil.h>

@@ -40,6 +40,11 @@
 
 */
 
+#ifndef MOZARD_TOUCH_SENSITIVITY
+#define MOZARD_TOUCH_SENSITIVITY 2
+#endif
+
+
 // powers of 2 please
 #define CONTROL_RATE 256
 
@@ -218,7 +223,7 @@ class MozardNano {
       buttonJustPressed = 0;
       
       uint8_t capacitance = readCapacitivePin(keyPins[keyIndex]);
-      boolean pressed = capacitance > 2;
+      boolean pressed = capacitance > MOZARD_TOUCH_SENSITIVITY;
       //Serial.print(keyIndex);
       //Serial.write(32);
      // Serial.println(capacitance);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.3.1">
+<eagle version="9.5.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -3823,7 +3823,6 @@ Commonly used for small ceramic capacitors. Like our 0.1uF (http://www.sparkfun.
 <part name="SP1" library="SparkFun-Electromechanical" deviceset="SPEAKER" device="" technology="PCB_MOUNT" value="SPEAKER"/>
 <part name="JP2" library="TOF" deviceset="HEADER-1X1" device="" value="GND"/>
 <part name="JP5" library="TOF" deviceset="HEADER-1X1" device="" value="5V"/>
-<part name="JP6" library="TOF" deviceset="HEADER-1X1" device="" value="A0"/>
 <part name="A1" library="TOF" deviceset="POT" device="" value="A1"/>
 <part name="GND28" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="SUPPLY4" library="SparkFun-Aesthetics" deviceset="VCC" device=""/>
@@ -3851,6 +3850,7 @@ Commonly used for small ceramic capacitors. Like our 0.1uF (http://www.sparkfun.
 <part name="R1" library="adafruit" deviceset="R-US_" device="0204/7" value="100k"/>
 <part name="SUPPLY3" library="SparkFun-Aesthetics" deviceset="VCC" device=""/>
 <part name="SUPPLY7" library="SparkFun-Aesthetics" deviceset="VCC" device=""/>
+<part name="U$15" library="TOF" deviceset="PCB-TOUCHPAD-1-PIN" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -3867,6 +3867,7 @@ http://creativecommons.org/licenses/by-sa/3.0/</text>
 <text x="7.62" y="201.93" size="1.778" layer="97">CHANGES
 2018-08-01
 - updated labels and exposed rx</text>
+<text x="-2.54" y="121.92" size="3.81" layer="97">How to disable MIDI IN when a jack is not connected? Because it disables the Arduino reprogramming :(</text>
 </plain>
 <instances>
 <instance part="GND13" gate="1" x="58.42" y="54.61" smashed="yes">
@@ -4001,10 +4002,6 @@ http://creativecommons.org/licenses/by-sa/3.0/</text>
 <attribute name="VALUE" x="124.333" y="186.563" size="1.778" layer="96" rot="R180"/>
 <attribute name="NAME" x="124.714" y="185.674" size="0.8128" layer="95"/>
 </instance>
-<instance part="JP6" gate="G$1" x="127" y="187.96" smashed="yes">
-<attribute name="VALUE" x="124.333" y="189.103" size="1.778" layer="96" rot="R180"/>
-<attribute name="NAME" x="124.714" y="188.214" size="0.8128" layer="95"/>
-</instance>
 <instance part="A1" gate="G$1" x="76.2" y="157.48" smashed="yes" rot="R180">
 <attribute name="NAME" x="72.136" y="154.686" size="1.778" layer="95" rot="R270"/>
 <attribute name="VALUE" x="72.136" y="164.592" size="1.778" layer="96" rot="R270"/>
@@ -4065,6 +4062,7 @@ http://creativecommons.org/licenses/by-sa/3.0/</text>
 <instance part="SUPPLY7" gate="G$1" x="76.2" y="120.65" smashed="yes">
 <attribute name="VALUE" x="75.184" y="124.206" size="1.778" layer="96"/>
 </instance>
+<instance part="U$15" gate="G$1" x="160.02" y="194.31" smashed="yes" rot="R180"/>
 </instances>
 <busses>
 </busses>
@@ -4277,14 +4275,6 @@ http://creativecommons.org/licenses/by-sa/3.0/</text>
 <pinref part="R1" gate="G$1" pin="1"/>
 <wire x1="100.33" y1="33.02" x2="106.68" y2="33.02" width="0.1524" layer="91"/>
 <junction x="106.68" y="33.02"/>
-</segment>
-</net>
-<net name="A0" class="0">
-<segment>
-<pinref part="U$1" gate="G$1" pin="A0"/>
-<wire x1="180.34" y1="187.96" x2="134.62" y2="187.96" width="0.1524" layer="91"/>
-<label x="148.59" y="187.96" size="1.778" layer="95"/>
-<pinref part="JP6" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="D11" class="0">
@@ -4550,11 +4540,20 @@ http://creativecommons.org/licenses/by-sa/3.0/</text>
 <label x="-14.986" y="99.822" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="N$1" class="0">
+<net name="LM386_OUTPUT" class="0">
 <segment>
 <pinref part="U2" gate="G$1" pin="OUT"/>
 <pinref part="SP1" gate="G$1" pin="+"/>
 <wire x1="127" y1="40.64" x2="146.05" y2="40.64" width="0.1524" layer="91"/>
+<label x="127" y="40.64" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="N$3" class="0">
+<segment>
+<pinref part="U$15" gate="G$1" pin="P$1"/>
+<pinref part="U$1" gate="G$1" pin="A0"/>
+<wire x1="166.37" y1="194.31" x2="166.37" y2="187.96" width="0.1524" layer="91"/>
+<wire x1="166.37" y1="187.96" x2="180.34" y2="187.96" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
