@@ -92,10 +92,10 @@ class MozardNano {
   private:
 
 
-    bool keys[13]; // 12 keys + 1 button
+    bool keys[14]; // 12 keys + 2 buttons
 
-    uint8_t keyPins[13] = {A5, A4, A3, A2, 12, 11, 8, 7, 6, 5, 4, 3,2};
-    uint8_t thresholds[13] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    uint8_t keyPins[14] = {A5, A4, A3, A2, 12, 11, 8, 7, 6, 5, 4, 3,2,A0};
+    uint8_t thresholds[14] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0};
     uint8_t keyIndex = 0;
     uint8_t keyJustPressed = 0;
     uint8_t keyJustReleased = 0;
@@ -225,7 +225,7 @@ class MozardNano {
       
       startMozzi(CONTROL_RATE);
 
-      
+      reconnectDigitalIn  ( 0 ) ;
       reconnectDigitalIn  ( 2 ) ;
       reconnectDigitalIn  ( 3 ) ;
       reconnectDigitalIn  ( 4 ) ;
@@ -285,7 +285,7 @@ class MozardNano {
       }
 
 
-      keyIndex = (keyIndex + 1) % 13; // 12 keys + 1 button
+      keyIndex = (keyIndex + 1) % 14; // 12 keys + 2 buttons
 
 
     }
@@ -321,6 +321,10 @@ class MozardNano {
 
     bool buttonAPressed() {
       return buttonJustPressed == 1;
+    }
+
+    bool buttonBPressed() {
+      return buttonJustPressed == 2;
     }
 
     int getPotA() {
