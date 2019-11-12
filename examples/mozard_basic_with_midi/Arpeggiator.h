@@ -11,11 +11,27 @@ class Arpeggiator {
     uint8_t arpTick;
     byte arpkey;
     bool holdingKey = false;
-    
+    bool running = false;
 
   public:
 
    uint8_t interval = 20;
+
+   bool isRunning() {
+    return  running;
+   }
+
+   void run() {
+    running = false;
+   }
+
+   void hold() {
+    running = true;
+   }
+
+   void toggle() {
+    running = !running;
+   }
 
     void clear() {
       for ( byte i = 0; i < ARPEGGIATOR_BUFFER_SIZE ; i++ ) {
@@ -24,7 +40,7 @@ class Arpeggiator {
       heldkeysCount = 0;
     }
 
-    void addKey(uint8_t key) {
+    void addKey(byte key) {
       if ( key == 0 ) return;
       for ( byte i = 0; i < ARPEGGIATOR_BUFFER_SIZE ; i++ ) {
         if ( heldkeys[i] == 0 ) {
@@ -35,7 +51,7 @@ class Arpeggiator {
       }
     }
 
-    void removeKey(uint8_t key) {
+    void removeKey(byte key) {
       if ( key == 0 ) return;
       for ( byte i = 0; i < ARPEGGIATOR_BUFFER_SIZE ; i++ ) {
         if ( heldkeys[i] == key ) {
@@ -46,12 +62,15 @@ class Arpeggiator {
       }
     }
 
-    uint8_t  getKey() {
+    byte  getKey() {
       return arpkey;
     }
 
     boolean update() {
       holdingKey = false;
+
+      if ( !running ) return false;
+      
       arpTick++;
       if ( arpTick > interval ) {
 
@@ -71,6 +90,7 @@ class Arpeggiator {
     }
 
     boolean available() {
+      if ( !running ) return false;
       return holdingKey;
     }
 

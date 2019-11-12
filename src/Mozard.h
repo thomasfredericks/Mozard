@@ -61,18 +61,6 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 #include "mozzi_rand.h"
 
 
-/**
- * @todo RE-ADD MIDI INPUT SUPPORT
- */
-#ifndef NOMIDI
-void handleNoteOn(byte channel, byte pitch, byte velocity) {
-  playNote(pitch);
-}
-
-void handleNoteOff(byte channel, byte pitch, byte velocity) {
-  
-}
-#endif
 
 
 
@@ -90,7 +78,7 @@ class MozardNano {
         }
     */
   private:
-
+   
 
     bool keys[14]; // 12 keys + 2 buttons
 
@@ -107,6 +95,11 @@ class MozardNano {
     #define MOZARD_ANALOG_PINS 3
     int analogValues[MOZARD_ANALOG_PINS];
     byte analogPins[MOZARD_ANALOG_PINS] = {6,7,1}; // A, B, C
+
+    void (*keyPressedCallback)(byte key);
+    void (*keyReleasedCallback)(byte key);
+    void (*buttonLeftPressedCallback)(void);
+    void (*buttonRightPressedCallback)(void);
     
     uint8_t readCapacitivePin(int pinToMeasure) {
       // Variables used to translate from Arduino to AVR pin naming
@@ -240,10 +233,6 @@ class MozardNano {
 
       #ifndef NOMIDI
 
-	   MIDI.setHandleNoteOn(handleNoteOn);  // Put only the name of the function
-
-	  // Do the same for NoteOffs
-	  MIDI.setHandleNoteOff(handleNoteOff);
 
 	  // Initiate MIDI communications, listen to all channels
 	  MIDI.begin(MIDI_CHANNEL_OMNI);
@@ -254,7 +243,111 @@ class MozardNano {
     }
 
 
-    void updateControl() {
+    void setMidiNoteOnCallback(void (*fptr)(byte channel, byte note, byte velocity)) {
+      #ifndef NOMIDI
+      MIDI.setHandleNoteOn(fptr);  // Put only the name of the function
+      #endif
+    }
+
+     void setMidiNoteOffCallback(void (*fptr)(byte channel, byte note, byte velocity)) {
+      #ifndef NOMIDI
+      MIDI.setHandleNoteOff(fptr);  // Put only the name of the function
+      #endif
+    }
+  
+  // void setHandleNoteOn(void (*fptr)(byte channel, byte note, byte velocity));
+  //  keyPressedCallback               = fptr; 
+    void setKeyPressedCallback(void (*fptr)(byte key)) {
+     
+      keyPressedCallback = fptr;
+
+    }
+
+     void setKeyReleasedCallback(void (*fptr)(byte key)) {
+     
+      keyReleasedCallback = fptr;
+
+    }
+
+     void setButtonLeftPressedCallback(void (*fptr)(void)) {
+     	buttonLeftPressedCallback = fptr;
+     }
+
+    void setButtonRightPressedCallback (void (*fptr)(void)){
+    	buttonRightPressedCallback = fptr;
+    }
+
+
+
+
+protected:
+
+
+    bool aKeyIsPressed() {
+      return keyJustPressed > 0;
+    }
+
+    bool aKeyIsReleased() {
+      return keyJustReleased > 0;
+    }
+
+    uint8_t getKeyPressed() {
+    	return keyJustPressed;
+    }
+
+     uint8_t getKeyReleased() {
+    	return keyJustReleased;
+    }
+
+
+    uint8_t getNotePressed() {
+      return keyToNote(keyJustPressed);
+    }
+
+    uint8_t getNoteReleased() {
+      return keyToNote(keyJustReleased);
+    }
+
+    bool buttonAPressed() {
+      return buttonJustPressed == 1;
+    }
+
+    bool buttonBPressed() {
+      return buttonJustPressed == 2;
+    }
+
+
+public:
+
+	uint8_t  keyToNote(uint8_t  key) {
+    	return octave * 12 + key -1;
+    }
+
+	int getTopLeftPotentiometer() {
+      return analogValues[0];
+    }    
+    
+    int getBottomLeftPotentiometer() {
+      return analogValues[1];
+    }
+
+     int getRightPotentiometer() {
+      return analogValues[2];
+    }
+
+    void setOctave( char newOctave) {
+      octave = constrain(newOctave, 0, 11);
+    }
+
+    void octaveUp() {
+      setOctave(octave + 1);
+    }
+
+    void octaveDown() {
+      setOctave(octave - 1);
+    }
+
+  void updateControl() {
 
       analogValues[analogReading] = mozziAnalogRead(analogPins[analogReading]);
       analogReading = ( analogReading + 1 ) % MOZARD_ANALOG_PINS;
@@ -287,72 +380,14 @@ class MozardNano {
 
       keyIndex = (keyIndex + 1) % 14; // 12 keys + 2 buttons
 
+      if ( aKeyIsPressed() && keyPressedCallback ) keyPressedCallback(getKeyPressed());
+      else if ( aKeyIsReleased() && keyReleasedCallback ) keyReleasedCallback(getKeyReleased());
+      else if ( buttonBPressed() && buttonLeftPressedCallback ) buttonLeftPressedCallback();
+      else if ( buttonAPressed() && buttonRightPressedCallback ) buttonRightPressedCallback();
 
-    }
-
-    bool aKeyIsPressed() {
-      return keyJustPressed > 0;
-    }
-
-    bool aKeyIsReleased() {
-      return keyJustReleased > 0;
-    }
-
-    uint8_t getKeyPressed() {
-    	return keyJustPressed;
-    }
-
-     uint8_t getKeyReleased() {
-    	return keyJustReleased;
-    }
-
-    uint8_t  keyToNote(uint8_t  key) {
-    	return octave * 12 + key -1;
-    }
-
-
-    uint8_t getNotePressed() {
-      return keyToNote(keyJustPressed);
-    }
-
-    uint8_t getNoteReleased() {
-      return keyToNote(keyJustReleased);
-    }
-
-    bool buttonAPressed() {
-      return buttonJustPressed == 1;
-    }
-
-    bool buttonBPressed() {
-      return buttonJustPressed == 2;
-    }
-
-    int getPotA() {
-      return analogValues[0];
-    }    
-    
-    int getPotB() {
-      return analogValues[1];
-    }
-
-     int getPotC() {
-      return analogValues[2];
-    }
-
-    void setOctave( char newOctave) {
-      octave = constrain(newOctave, 1, 10);
-
-    }
-
-    void octaveUp() {
-      setOctave(octave + 1);
-    }
-
-    void octaveDown() {
-      setOctave(octave - 1);
     }
 
 
 };
 
-MozardNano mozard;
+MozardNano Mozard;
