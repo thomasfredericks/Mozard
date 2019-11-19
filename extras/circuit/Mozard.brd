@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.3.1">
+<eagle version="9.5.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
 <setting keepoldvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.0125" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.05" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -165,9 +165,7 @@
 <wire x1="93.98" y1="0" x2="93.98" y2="71.12" width="0.0254" layer="20"/>
 <wire x1="93.98" y1="71.12" x2="0" y2="71.12" width="0.0254" layer="20"/>
 <wire x1="0" y1="71.12" x2="0" y2="0" width="0.027940625" layer="20"/>
-<text x="4.6309875" y="15.5529875" size="1.4224" layer="21" font="vector" rot="R270" align="bottom-center">MOZARD 
-2019-09-10
-TOFSTUFF.COM</text>
+<text x="55.5670125" y="22.4109875" size="1.4224" layer="28" font="vector" rot="MR0" align="bottom-center">MOZARD 2019-09-19 TOFSTUFF.COM</text>
 <text x="74.295" y="46.6725" size="1.016" layer="21" rot="R90">GND</text>
 <text x="59.055" y="46.99" size="1.016" layer="21" rot="R90">SPKR+</text>
 <text x="49.2125" y="57.785" size="1.016" layer="21">FOR MIDI ONLY</text>
@@ -812,14 +810,11 @@ design rules under a new name.</description>
 <attribute name="SPARKLE_ID" value="6504" x="66.04" y="45.72" size="1.778" layer="27" display="off"/>
 <attribute name="VALUE" x="63.8175" y="45.72" size="0.762" layer="27"/>
 </element>
-<element name="JP2" library="TOF" package="1X01_SIDE_NAME" value="GND" x="10.16" y="68.58" smashed="yes" rot="R270">
-<attribute name="VALUE" x="9.4488" y="66.7512" size="1.27" layer="27" rot="R270"/>
+<element name="JP2" library="TOF" package="1X01_SIDE_NAME" value="GND" x="11.43" y="68.58" smashed="yes" rot="R270">
+<attribute name="VALUE" x="10.7188" y="66.7512" size="1.27" layer="27" rot="R270"/>
 </element>
-<element name="JP5" library="TOF" package="1X01_SIDE_NAME" value="5V" x="12.7" y="68.58" smashed="yes" rot="R270">
-<attribute name="VALUE" x="11.9888" y="66.7512" size="1.27" layer="27" rot="R270"/>
-</element>
-<element name="JP6" library="TOF" package="1X01_SIDE_NAME" value="A0" x="15.24" y="68.58" smashed="yes" rot="R270">
-<attribute name="VALUE" x="14.5288" y="66.7512" size="1.27" layer="27" rot="R270"/>
+<element name="JP5" library="TOF" package="1X01_SIDE_NAME" value="5V" x="13.97" y="68.58" smashed="yes" rot="R270">
+<attribute name="VALUE" x="13.2588" y="66.7512" size="1.27" layer="27" rot="R270"/>
 </element>
 <element name="A1" library="TOF" package="ALPS_POT" value="A1" x="87.63" y="37.1475" smashed="yes" rot="R180">
 <attribute name="NAME" x="90.2975" y="42.37" size="1.27" layer="21" font="vector"/>
@@ -866,6 +861,7 @@ design rules under a new name.</description>
 <attribute name="NAME" x="51.1429" y="52.3875" size="0.9906" layer="25" ratio="12" rot="R270"/>
 <attribute name="VALUE" x="49.3649" y="51.4731" size="0.9906" layer="27" ratio="12" rot="R270"/>
 </element>
+<element name="U$15" library="TOF" package="PCB-TOUCHPAD-1-PIN" value="PCB-TOUCHPAD-1-PIN" x="5.08" y="15.24" smashed="yes" rot="R270"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -892,13 +888,13 @@ design rules under a new name.</description>
 <wire x1="41.948096875" y1="51.231796875" x2="38.735" y2="48.895" width="0.254" layer="16"/>
 <wire x1="40.6908" y1="54.0512" x2="39.8526" y2="53.975" width="0.254" layer="16"/>
 <wire x1="37.9984" y1="39.2938" x2="34.3281" y2="39.2938" width="0.254" layer="16"/>
-<wire x1="38.2143" y1="39.0779" x2="37.9984" y2="39.2938" width="0.254" layer="16"/>
-<wire x1="39.824025" y1="37.468175" x2="38.2143" y2="39.0779" width="0.254" layer="16"/>
+<wire x1="39.824025" y1="37.468175" x2="38.69055" y2="38.60165" width="0.254" layer="16"/>
+<wire x1="38.69055" y1="38.60165" x2="37.9984" y2="39.2938" width="0.254" layer="16"/>
 <wire x1="34.3281" y1="39.2938" x2="34.29" y2="39.37" width="0.254" layer="16"/>
 <wire x1="39.824025" y1="37.468175" x2="40.513" y2="36.3855" width="0.254" layer="16"/>
-<wire x1="39.2938" y1="40.1574" x2="39.2938" y2="48.0568" width="0.254" layer="16"/>
-<wire x1="38.2143" y1="39.0779" x2="39.2938" y2="40.1574" width="0.254" layer="16"/>
-<wire x1="39.2938" y1="48.0568" x2="38.735" y2="48.895" width="0.254" layer="16"/>
+<wire x1="40.8813" y1="40.7924" x2="40.8813" y2="45.67555" width="0.254" layer="16"/>
+<wire x1="38.69055" y1="38.60165" x2="40.8813" y2="40.7924" width="0.254" layer="16"/>
+<wire x1="40.8813" y1="45.67555" x2="38.735" y2="48.895" width="0.254" layer="16"/>
 <wire x1="40.3733" y1="67.1449" x2="42.5323" y2="67.1449" width="0.254" layer="16"/>
 <wire x1="36.0553" y1="62.8269" x2="40.3733" y2="67.1449" width="0.254" layer="16"/>
 <wire x1="36.0553" y1="56.7817" x2="36.0553" y2="62.8269" width="0.254" layer="16"/>
@@ -913,7 +909,8 @@ design rules under a new name.</description>
 <wire x1="16.2687" y1="41.1099" x2="13.3858" y2="43.9928" width="0.254" layer="16"/>
 <wire x1="16.2687" y1="34.3281" x2="16.2687" y2="41.1099" width="0.254" layer="16"/>
 <wire x1="13.3858" y1="53.3273" x2="13.35" y2="53.38" width="0.254" layer="16"/>
-<wire x1="10.16" y1="68.58" x2="10.16" y2="55.245" width="0.254" layer="16"/>
+<wire x1="11.43" y1="68.58" x2="10.16" y2="67.31" width="0.254" layer="16"/>
+<wire x1="10.16" y1="67.31" x2="10.16" y2="55.245" width="0.254" layer="16"/>
 <wire x1="12.0777" y1="53.3273" x2="13.3858" y2="53.3273" width="0.254" layer="16"/>
 <wire x1="10.16" y1="55.245" x2="12.0777" y2="53.3273" width="0.254" layer="16"/>
 <wire x1="20.955" y1="1.905" x2="17.145" y2="1.905" width="0.254" layer="1"/>
@@ -975,9 +972,6 @@ design rules under a new name.</description>
 <wire x1="16.27" y1="39.5" x2="19" y2="39.5" width="0.254" layer="1"/>
 <wire x1="19" y1="39.5" x2="19.05" y2="39.37" width="0.254" layer="1"/>
 <wire x1="13.5" y1="39.5" x2="13.35" y2="39.6475" width="0.254" layer="1"/>
-<wire x1="13" y1="68.5" x2="13" y2="58.5" width="0.254" layer="1"/>
-<wire x1="13" y1="58.5" x2="13.35" y2="58.38" width="0.254" layer="1"/>
-<wire x1="13" y1="68.5" x2="12.7" y2="68.58" width="0.254" layer="1"/>
 <wire x1="16.27" y1="57.365" x2="16.27" y2="39.5" width="0.254" layer="1"/>
 <wire x1="13.750659375" y1="57.365" x2="16.27" y2="57.365" width="0.254" layer="1"/>
 <wire x1="13.750659375" y1="57.365" x2="13.35" y2="58.38" width="0.254" layer="1"/>
@@ -994,8 +988,7 @@ design rules under a new name.</description>
 <wire x1="80.01" y1="34.29" x2="80.63" y2="34.6475" width="0.254" layer="1"/>
 <wire x1="60.96" y1="25.4" x2="60.96" y2="25.3492" width="0.254" layer="1"/>
 <contactref element="U2" pad="6"/>
-<wire x1="46.355" y1="51.435" x2="58.42" y2="51.435" width="0.254" layer="16"/>
-<wire x1="58.42" y1="51.435" x2="59.69" y2="51.435" width="0.254" layer="16"/>
+<wire x1="46.355" y1="51.435" x2="59.69" y2="51.435" width="0.254" layer="16"/>
 <wire x1="59.69" y1="51.435" x2="76.835" y2="34.29" width="0.254" layer="16"/>
 <wire x1="76.835" y1="34.29" x2="80.2725" y2="34.29" width="0.254" layer="16"/>
 <wire x1="80.2725" y1="34.29" x2="80.63" y2="34.6475" width="0.254" layer="16"/>
@@ -1009,6 +1002,8 @@ design rules under a new name.</description>
 <wire x1="59.69" y1="51.435" x2="68.58" y2="51.435" width="0.254" layer="16"/>
 <wire x1="68.58" y1="51.435" x2="78.74" y2="61.595" width="0.254" layer="16"/>
 <wire x1="78.74" y1="61.595" x2="78.74" y2="62.5475" width="0.254" layer="16"/>
+<wire x1="13.97" y1="68.58" x2="13.35" y2="67.96" width="0.254" layer="16"/>
+<wire x1="13.35" y1="67.96" x2="13.35" y2="58.38" width="0.254" layer="16"/>
 </signal>
 <signal name="D9(AUDIO3.9K)">
 <contactref element="R7" pad="1"/>
@@ -1085,15 +1080,6 @@ design rules under a new name.</description>
 <wire x1="40.005" y1="52.705" x2="48.895" y2="52.705" width="0.254" layer="1"/>
 <wire x1="49.8475" y1="53.6575" x2="49.8475" y2="57.5075" width="0.254" layer="1"/>
 <wire x1="49.8475" y1="57.5075" x2="45.045" y2="62.31" width="0.254" layer="1"/>
-</signal>
-<signal name="A0">
-<contactref element="U$1" pad="A0"/>
-<contactref element="JP6" pad="1"/>
-<wire x1="18.9992" y1="60.2361" x2="18.9992" y2="59.8043" width="0.254" layer="1"/>
-<wire x1="15.3289" y1="63.9064" x2="18.9992" y2="60.2361" width="0.254" layer="1"/>
-<wire x1="15.3289" y1="68.4403" x2="15.3289" y2="63.9064" width="0.254" layer="1"/>
-<wire x1="18.9992" y1="59.8043" x2="19.05" y2="59.69" width="0.254" layer="1"/>
-<wire x1="15.3289" y1="68.4403" x2="15.24" y2="68.58" width="0.254" layer="1"/>
 </signal>
 <signal name="D11">
 <contactref element="U$1" pad="D11"/>
@@ -1327,11 +1313,21 @@ design rules under a new name.</description>
 <wire x1="60.6425" y1="62.5475" x2="60.6425" y2="64.77" width="0.254" layer="16"/>
 <wire x1="60.6425" y1="62.5475" x2="60.345" y2="62.31" width="0.254" layer="16"/>
 </signal>
-<signal name="N$1">
+<signal name="LM386_OUTPUT">
 <contactref element="U2" pad="5"/>
 <contactref element="SP1" pad="+"/>
 <wire x1="46.355" y1="48.895" x2="55.245" y2="48.895" width="0.254" layer="16"/>
 <wire x1="55.245" y1="48.895" x2="58.42" y2="45.72" width="0.254" layer="16"/>
+</signal>
+<signal name="N$3">
+<contactref element="U$15" pad="1"/>
+<contactref element="U$1" pad="A0"/>
+<wire x1="19.05" y1="59.69" x2="16.51" y2="59.69" width="0.254" layer="1"/>
+<wire x1="16.51" y1="59.69" x2="15.24" y2="60.96" width="0.254" layer="1"/>
+<wire x1="15.24" y1="60.96" x2="12.065" y2="60.96" width="0.254" layer="1"/>
+<wire x1="10.16" y1="59.055" x2="12.065" y2="60.96" width="0.254" layer="1"/>
+<wire x1="5.08" y1="19.05" x2="10.16" y2="24.13" width="0.254" layer="1"/>
+<wire x1="10.16" y1="24.13" x2="10.16" y2="59.055" width="0.254" layer="1"/>
 </signal>
 </signals>
 <mfgpreviewcolors>
@@ -1344,10 +1340,6 @@ design rules under a new name.</description>
 </board>
 </drawing>
 <compatibility>
-<note version="6.3" minversion="6.2.2" severity="warning">
-Since Version 6.2.2 text objects can contain more than one line,
-which will not be processed correctly with this version.
-</note>
 <note version="8.2" severity="warning">
 Since Version 8.2, EAGLE supports online libraries. The ids
 of those online libraries will not be understood (or retained)

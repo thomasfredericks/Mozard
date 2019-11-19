@@ -1,8 +1,17 @@
+
+
 // MOZARD HARDWARE AND MOZZI SETUP
+// ===============================
+// Increase MOZARD_TOUCH_SENSITIVITY if your keyboard is too sensitive
+// Default is 2
+#define MOZARD_TOUCH_SENSITIVITY 2
+#define NOMIDI
+
+
+#include "Mozard_additionnal.h" // TO BE PUT IN Mozard.h
 #include <Mozard.h>
-#include <mozzi_midi.h>
-#include <MIDI.h>
-MIDI_CREATE_DEFAULT_INSTANCE();
+
+
 
 // MOZZI STUFF
 #include <Oscil.h>
@@ -22,31 +31,19 @@ boolean arpeggiatorRunning = false;
 #include "Arpeggiator.h"
 Arpeggiator arp = Arpeggiator();
 
-void handleNoteOn(byte channel, byte pitch, byte velocity) {
-  playNote(pitch);
-}
 
-void handleNoteOff(byte channel, byte pitch, byte velocity) {
-  
-}
 
 
 void setup() {
 
-  //Serial.begin(57600);
+  
 
   mozard.setup();
 
   pinMode(13, OUTPUT);
   digitalWrite(13, HIGH);
 
-  MIDI.setHandleNoteOn(handleNoteOn);  // Put only the name of the function
-
-  // Do the same for NoteOffs
-  MIDI.setHandleNoteOff(handleNoteOff);
-
-  // Initiate MIDI communications, listen to all channels
-  MIDI.begin(MIDI_CHANNEL_OMNI);
+  Mozard_additionnal_setup();
 
 
 }
@@ -57,15 +54,26 @@ void playNote( uint8_t note ) {
   aSin.setFreq( mtof(note));
 
   int potA = mozard.getPotA();
-  int potB = mozard.getPotB();
-  /*
-  Serial.print(potA);
+
+  int a = 10;
+  int r = 2048;
+  if ( potA < 400) {
+    a = 10;
+    r = map( potA, 0, 399, 10, 1024);
+  } else if ( potA < 800) {
+    a = map(potA,400,799,10,512);
+    r = map(potA,400,799,1024,2048);
+  } else {
+    a = 512;//map(potA,800,1023,512,100);
+    r = map(potA,800,1023,2048,10);
+    
+  }
+
+  Serial.print(a);
   Serial.print(" ");
-  Serial.print(potB);
-  Serial.print(" ");
-  Serial.println(note);
-  */
-  envelope.start(potA / 4 + 1, potB * 2 + 100);
+  Serial.println(r);
+  
+  envelope.start(a, r);
 
 }
 
@@ -74,6 +82,9 @@ void playNote( uint8_t note ) {
 void updateControl() {
 
   mozard.updateControl();
+
+  int potB = mozard.getPotB();
+  arp.interval = (1023-potB) / 10 + 1;
 
   mozard.setOctave( mozard.getPotC() / 120 + 1 ); // USE MAP INSTEAD
 
@@ -120,6 +131,6 @@ int updateAudio() {
 
 // DO NOT CHANGE ANYTHING AFTER THIS
 void loop() {
-  MIDI.read();
+  Mozard_additionnal_loop();
   audioHook();
 }
