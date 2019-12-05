@@ -208,10 +208,12 @@ class MozardNano {
 
   public:
    void loop() {
-		#ifndef NOMIDI
+		
+		audioHook();
+		
+	    #ifndef NOMIDI
 		MIDI.read();
 		#endif
-		audioHook();
    }
 
     void setup() {
@@ -348,6 +350,8 @@ public:
     }
 
   void updateControl() {
+
+
 
       analogValues[analogReading] = mozziAnalogRead(analogPins[analogReading]);
       analogReading = ( analogReading + 1 ) % MOZARD_ANALOG_PINS;
