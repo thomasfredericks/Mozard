@@ -20,14 +20,19 @@ Arpeggiator arp = Arpeggiator();
 
 #include "Synth.h"
 
+byte release = 127;
 
 
+ 
 void keyPressed(byte key) {
 
   if ( arp.isRunning() ) {
+    
     arp.addKey( key );
+    
   } else {
-    synthPlayNote( Mozard.keyToNote(key));
+
+    synthPlayNote( Mozard.keyToNote(key), release);
   }
 
 }
@@ -37,6 +42,25 @@ void keyReleased(byte key) {
   if ( arp.isRunning() ) {
     arp.removeKey( key );
   } 
+  
+}
+
+void receivedMidiNoteOn(byte channel, byte note, byte velocity) {
+  
+   if ( arp.isRunning() ) {
+    arp.addKey( note - 36);
+   } else {
+   
+  synthPlayNote(note, map(velocity,0,127,release >> 3,release));
+  }
+}
+
+void receivedMidiNoteOff(byte channel, byte note, byte velocity) {
+  
+   if ( arp.isRunning() ) {
+    arp.removeKey( note - 36 );
+  }
+  
   
 }
 
@@ -56,10 +80,11 @@ void buttonRightPressed() {
 
 }
 
-void receivedMidiNoteOn(byte channel, byte note, byte velocity) {
-  synthPlayNote(note);
-}
 
+
+void receivedPitchBend(byte channel, int bend) {
+  synthBend(bend);
+}
 
 void setup() {
 
@@ -69,6 +94,8 @@ void setup() {
   Mozard.setButtonLeftPressedCallback( buttonLeftPressed );
   Mozard.setButtonRightPressedCallback( buttonRightPressed );
   Mozard.setMidiNoteOnCallback( receivedMidiNoteOn );
+  Mozard.setMidiNoteOffCallback( receivedMidiNoteOff );
+  Mozard.setPitchBendCallback( receivedPitchBend );
   
   pinMode(13, OUTPUT);
   digitalWrite(13, LOW);
@@ -82,9 +109,11 @@ void setup() {
 
 void updateControl() {
 
-  Mozard.setOctave( Mozard.getRightPotentiometer() / 120 + 1 ); // USE MAP INSTEAD
+  synthSetOctave( Mozard.getRightPotentiometer() / 120 + 1 );
 
   Mozard.updateControl();
+
+  release = Mozard.getTopLeftPotentiometer() >> 4;
 
   synthUpdateControl();
 
@@ -92,7 +121,7 @@ void updateControl() {
     arp.interval = (Mozard.getTopLeftPotentiometer()) / 10 ;
     if ( arp.update() ) {
       digitalWrite(13, !digitalRead(13));
-      if ( arp.available() ) synthPlayNote( Mozard.keyToNote( arp.getKey() ));
+      if ( arp.available() ) synthPlayNote( Mozard.keyToNote(arp.getKey()) , release);
     }
   }
 

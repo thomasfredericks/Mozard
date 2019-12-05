@@ -13,8 +13,7 @@ LowPassFilter lpf;
 #include <tables/sin2048_int8.h> // sine table for oscillator
 Oscil<SIN2048_NUM_CELLS, AUDIO_RATE> osc(SIN2048_DATA);
 
-#include <tables/triangle_valve_2048_int8.h>
-Oscil<TRIANGLE_VALVE_2048_NUM_CELLS, AUDIO_RATE> tri(TRIANGLE_VALVE_2048_DATA);
+
 
 #include <tables/saw2048_int8.h>
 Oscil<SAW2048_NUM_CELLS, AUDIO_RATE> saw(SAW2048_DATA );
@@ -40,15 +39,20 @@ Oscil<SIN2048_NUM_CELLS, AUDIO_RATE> lfoSin(SIN2048_DATA);
 
 Oscil<SIN2048_NUM_CELLS, CONTROL_RATE> lfoControl(SIN2048_DATA);
 
+#include <tables/triangle_valve_2048_int8.h>
+//Oscil<TRIANGLE_VALVE_2048_NUM_CELLS, AUDIO_RATE> tri(TRIANGLE_VALVE_2048_DATA);
 Oscil<TRIANGLE_VALVE_2048_NUM_CELLS, AUDIO_RATE> lfoTri(TRIANGLE_VALVE_2048_DATA);
 
-int release;
 
+float baseNote = 48;
 float lastFreq = 440.0f;
+float noteBend = 0;
 
 float modulation = 0;
 float modulationOffset = 0;
 uint8_t modulationIntensity = 0;
+
+byte octave = 3;
 
 #define MODES 5
 uint8_t mode = 4;
@@ -72,7 +76,7 @@ size_t presetCount =  sizeof(presets) / sizeof(Preset);
 
 
 void synthSetup() {
-  release = Mozard.getTopLeftPotentiometer();
+  
   lfoSin.setFreq(1.f);
 }
 
@@ -134,28 +138,44 @@ void synthUpdateControl() {
   gain = (int) env.next();
 }
 
-void synthPlayNote(byte note) {
 
-  
+void synthSetOctave(int newOctave  ) {
+  octave = constrain(newOctave,1,10);
+    //Mozard.setOctave( Mozard.getRightPotentiometer() / 120 + 1 ); // USE MAP INSTEAD
+}
 
-  if ( !arp.isRunning() ) release = Mozard.getTopLeftPotentiometer();
+void _setFrequency() {
+   
+    lastFreq = mtof(baseNote + noteBend + ((octave-4)*12));
+        
+    osc.setFreq( lastFreq);
+    sqr.setFreq( lastFreq);
+//  tri.setFreq( lastFreq );
+    saw.setFreq( lastFreq);
+}
+
+void synthBend(int rawBend) {
+   noteBend = (map(rawBend, 0, 16383, -1200, 1200))/100.0f;
+   _setFrequency();
+ 
+}
+
+void synthPlayNote(byte note, byte velocity) {
 
   int a = 10;
   int r = 2048;
-  if ( release < 512 ) {
+  if ( velocity < 64 ) {
     a = 10;
-    r = map( release, 0, 511, 10, 1024);
+    r = map( velocity, 0, 63, 10, 1024);
   } else {
 
-    a = map(release, 512, 1023, 10, 512);
-    r = map(release, 512, 1023, 1024, 5000);
+    a = map(velocity, 64, 127, 10, 512);
+    r = map(velocity, 64, 127, 1024, 7000);
 
   }
-  lastFreq = mtof(note) + float(random(100)-50)/40.0f;
-  osc.setFreq( lastFreq);
-  sqr.setFreq( lastFreq);
-  tri.setFreq( lastFreq );
-  saw.setFreq( lastFreq);
+
+  baseNote = (float)note;
+  _setFrequency();
   env.start(a, r);
   lfoControl.setPhase(0);
 

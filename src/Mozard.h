@@ -210,7 +210,7 @@ class MozardNano {
    void loop() {
 		
 		audioHook();
-		
+
 	    #ifndef NOMIDI
 		MIDI.read();
 		#endif
@@ -256,6 +256,14 @@ class MozardNano {
       MIDI.setHandleNoteOff(fptr);  // Put only the name of the function
       #endif
     }
+
+   // void MIDI_Class::setHandlePitchBend 	( 	void(*)(byte channel, int bend)  	fptr	) 	
+     void setPitchBendCallback(void (*fptr)(byte channel, int bend) ) {
+      #ifndef NOMIDI
+      MIDI.setHandlePitchBend(fptr);  // Put only the name of the function
+      #endif
+    } 
+
   
   // void setHandleNoteOn(void (*fptr)(byte channel, byte note, byte velocity));
   //  keyPressedCallback               = fptr; 
