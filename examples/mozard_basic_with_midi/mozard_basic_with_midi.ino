@@ -20,7 +20,7 @@ Arpeggiator arp = Arpeggiator();
 
 #include "Synth.h"
 
-byte release = 127;
+//byte release = 127;
 
 
  
@@ -32,7 +32,7 @@ void keyPressed(byte key) {
     
   } else {
 
-    synthPlayNote( Mozard.keyToNote(key), release);
+    synthPlayNote( Mozard.keyToNote(key), 127);
   }
 
 }
@@ -41,7 +41,9 @@ void keyReleased(byte key) {
 
   if ( arp.isRunning() ) {
     arp.removeKey( key );
-  } 
+  } else {
+    envelope.noteOff();
+  }
   
 }
 
@@ -51,7 +53,7 @@ void receivedMidiNoteOn(byte channel, byte note, byte velocity) {
     arp.addKey( note - 36);
    } else {
    
-  synthPlayNote(note, map(velocity,0,127,release >> 3,release));
+  synthPlayNote(note, velocity);
   }
 }
 
@@ -59,8 +61,9 @@ void receivedMidiNoteOff(byte channel, byte note, byte velocity) {
   
    if ( arp.isRunning() ) {
     arp.removeKey( note - 36 );
+  } else {
+    envelope.noteOff();
   }
-  
   
 }
 
@@ -113,7 +116,7 @@ void updateControl() {
 
   Mozard.updateControl();
 
-  release = Mozard.getTopLeftPotentiometer() >> 4;
+
 
   synthUpdateControl();
 
@@ -121,8 +124,12 @@ void updateControl() {
     arp.interval = (Mozard.getTopLeftPotentiometer()) / 10 ;
     if ( arp.update() ) {
       digitalWrite(13, !digitalRead(13));
-      if ( arp.available() ) synthPlayNote( Mozard.keyToNote(arp.getKey()) , release);
+      
+      if ( arp.noteOn() ) synthPlayNote( Mozard.keyToNote(arp.getKey()) , 127);
+      else envelope.noteOff();
     }
+  } else {
+    releaseTime = Mozard.getTopLeftPotentiometer() *4;
   }
 
 }

@@ -1,6 +1,8 @@
 // MOZZI STUFF
 #include <Oscil.h>
-#include <Ead.h> // Exponential attack decay envelope.
+
+
+
 #include <LowPassFilter.h>
 
 LowPassFilter lpf;
@@ -28,9 +30,13 @@ Oscil<SQUARE_NO_ALIAS_2048_NUM_CELLS , AUDIO_RATE> sqr(SQUARE_NO_ALIAS_2048_DATA
 // envelope generator
 // Ead envelope(CONTROL_RATE);
 
-Ead env(CONTROL_RATE);
-int gain = 0;
+#include <ADSR.h>
 
+//#include <Ead.h> // Exponential attack decay envelope.
+//Ead env(CONTROL_RATE);
+ADSR <AUDIO_RATE, AUDIO_RATE> envelope;
+int gain = 0;
+int releaseTime = 1000;
 
 
 //#include <tables/cos2048_int8.h>
@@ -78,6 +84,9 @@ size_t presetCount =  sizeof(presets) / sizeof(Preset);
 void synthSetup() {
   
   lfoSin.setFreq(1.f);
+
+  envelope.setADLevels(255,200);
+  envelope.setTimes(20,20,1000,1000);
 }
 
 void synthChangeMode() {
@@ -135,7 +144,7 @@ void synthUpdateControl() {
 
   modulationIntensity = min(potB << 3, 127);
 
-  gain = (int) env.next();
+  //gain = (int) env.next();
 }
 
 
@@ -162,21 +171,30 @@ void synthBend(int rawBend) {
 
 void synthPlayNote(byte note, byte velocity) {
 
-  int a = 10;
-  int r = 2048;
+ 
+
+  /*
   if ( velocity < 64 ) {
-    a = 10;
+   // a = 10;
     r = map( velocity, 0, 63, 10, 1024);
   } else {
 
-    a = map(velocity, 64, 127, 10, 512);
-    r = map(velocity, 64, 127, 1024, 7000);
+    //a = map(velocity, 64, 127, a, 512);
+    r = map(velocity, 64, 127, 1024, 20000);
 
   }
-
+*/
+  int level = velocity;
+  level = map(level,0,127,64,255);
+  envelope.setADLevels(level,level-8);
+  int a = 10;
+  int r = releaseTime ;
+  envelope.setTimes(a,a,r,r/4);
+  
   baseNote = (float)note;
   _setFrequency();
-  env.start(a, r);
+  //env.start(a, r);
+  envelope.noteOn();
   lfoControl.setPhase(0);
 
  // modulationOffset = float(random(100)-50)/20000.0f;
@@ -195,6 +213,8 @@ int updateAudio() {
     pitchModulation
   */
 
+  envelope.update();
+  gain = envelope.next();
 
   if ( currentMode == 0 ) {
     Q15n16 vibrato = (Q15n16) modulationIntensity * lfoSin.next();
