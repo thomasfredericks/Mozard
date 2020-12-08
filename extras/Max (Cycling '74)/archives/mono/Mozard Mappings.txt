@@ -1,0 +1,17 @@
+3, "modulation type";
+4, "attack time";
+5, "decay time";
+16, "sustain time";
+6, "sustain level";
+7, xor;
+8, "oscillator waves";
+9, "modulation param A";
+10, "modulation param B";
+11, "mod attack level";
+12, "mod sustain level";
+13, "mod attack time";
+14, "mod decay time";
+15, "mod release time";
+17, "vibrato";
+18, "lfo";
+19, "mod sustain time";

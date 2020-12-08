@@ -49,17 +49,17 @@
 #define CONTROL_RATE 256
 
 #include <mozzi_midi.h>
-
+/*
 #ifndef NOMIDI
 
 #include <MIDI.h>
 MIDI_CREATE_DEFAULT_INSTANCE();
 
 #endif
+*/
 
 #include "MozziGuts.h"
 #include "mozzi_rand.h"
-
 
 
 
@@ -95,7 +95,10 @@ class MozardNano {
     #define MOZARD_ANALOG_PINS 3
     int analogValues[MOZARD_ANALOG_PINS];
     byte analogPins[MOZARD_ANALOG_PINS] = {6,7,1}; // A, B, C
-
+    
+    void (*noteOnCallback)(byte note, byte velocity);
+    void (*noteOffCallback)(byte note, byte velocity);
+    void (*controlChangeCallback)(byte controller, byte value);
     void (*keyPressedCallback)(byte key);
     void (*keyReleasedCallback)(byte key);
     void (*buttonLeftPressedCallback)(void);
@@ -203,7 +206,15 @@ class MozardNano {
     }
 
 
+// http://hinton-instruments.co.uk/reference/midi/protocol/index.htm
+// https://www.midi.org/specifications-old/item/table-1-summary-of-midi-message    
 
+#define MM_NOTE_OFF 0x08
+#define MM_NOTE_ON 0x09
+#define MM_CTL 0x0B
+ byte  midiType;
+ uint8_t midiMessageLength = 0;
+ byte midiMessage[3];
 
 
   public:
@@ -211,9 +222,41 @@ class MozardNano {
 		
 		audioHook();
 
-	    #ifndef NOMIDI
-		MIDI.read();
-		#endif
+    // READ MIDI DATA
+
+    while ( Serial.available() ) {
+      byte extracted = Serial.read();
+      if (extracted < 0x80) {
+        if ( midiType ) {
+          midiMessage[midiMessageLength] = extracted;
+          midiMessageLength++;
+          if ( midiMessageLength == 2 ) {
+            if ( midiType == MM_NOTE_OFF && noteOffCallback  ) {
+              noteOffCallback(midiMessage[0],midiMessage[1] );
+            } else if ( midiType == MM_NOTE_ON && noteOnCallback  ) {
+              if ( midiMessage[1] == 0 ) noteOffCallback(midiMessage[0],midiMessage[1] );
+              else noteOnCallback(midiMessage[0],midiMessage[1] );
+            } else if ( midiType == MM_CTL && controlChangeCallback) {
+              controlChangeCallback(midiMessage[0],midiMessage[1] );
+            }
+            midiType = 0;
+          }
+        }
+      } else {
+        // GET RID OF CHANNEL DATA
+        extracted = extracted >> 4;
+        // ONLY HANDLE KNOWN MESSAGES
+        if ( extracted == MM_NOTE_OFF || extracted == MM_NOTE_ON || extracted == MM_CTL ) {
+            midiType = extracted;
+        } else {
+            midiType = 0;
+        }
+        midiMessageLength = 0;
+      }
+    }
+
+
+
    }
 
     void setup() {
@@ -233,30 +276,31 @@ class MozardNano {
         analogValues[i] = mozziAnalogRead(analogPins[i]);
       }
 
+/*
+
       #ifndef NOMIDI
-
-
 	  // Initiate MIDI communications, listen to all channels
 	  MIDI.begin(MIDI_CHANNEL_OMNI);
 	  #else
 	  Serial.begin(57600);
 	  #endif
-      
+      */
+      Serial.begin(31250);
     }
 
 
-    void setMidiNoteOnCallback(void (*fptr)(byte channel, byte note, byte velocity)) {
-      #ifndef NOMIDI
-      MIDI.setHandleNoteOn(fptr);  // Put only the name of the function
-      #endif
+   void setControlChangeCallback(void (*fptr)(byte controller, byte value)) {
+     controlChangeCallback = fptr;
     }
 
-     void setMidiNoteOffCallback(void (*fptr)(byte channel, byte note, byte velocity)) {
-      #ifndef NOMIDI
-      MIDI.setHandleNoteOff(fptr);  // Put only the name of the function
-      #endif
+    void setMidiNoteOnCallback(void (*fptr)(byte note, byte velocity)) {
+     noteOnCallback = fptr;
     }
 
+     void setMidiNoteOffCallback(void (*fptr)(byte note, byte velocity)) {
+      noteOffCallback = fptr;
+    }
+/*
    // void MIDI_Class::setHandlePitchBend 	( 	void(*)(byte channel, int bend)  	fptr	) 	
      void setPitchBendCallback(void (*fptr)(byte channel, int bend) ) {
       #ifndef NOMIDI
@@ -264,7 +308,7 @@ class MozardNano {
       #endif
     } 
 
-  
+      */
   // void setHandleNoteOn(void (*fptr)(byte channel, byte note, byte velocity));
   //  keyPressedCallback               = fptr; 
     void setKeyPressedCallback(void (*fptr)(byte key)) {
@@ -272,6 +316,7 @@ class MozardNano {
       keyPressedCallback = fptr;
 
     }
+
 
      void setKeyReleasedCallback(void (*fptr)(byte key)) {
      

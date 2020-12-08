@@ -1,12 +1,12 @@
-
-
 // MOZARD HARDWARE AND MOZZI SETUP
 // ===============================
 // Increase MOZARD_TOUCH_SENSITIVITY if your keyboard is too sensitive
 // Default is 2
 #define MOZARD_TOUCH_SENSITIVITY 2
-//#define NOMIDI
 
+// MOZARD TODO
+// ===============================
+// DO A MODE WITH SAMPLE PLAYBACK
 
 #include <Mozard.h>
 
@@ -22,17 +22,18 @@ Arpeggiator arp = Arpeggiator();
 
 //byte release = 127;
 
+int previousPot = -1;
 
- 
+
 void keyPressed(byte key) {
 
   if ( arp.isRunning() ) {
-    
+
     arp.addKey( key );
-    
+
   } else {
 
-    synthPlayNote( Mozard.keyToNote(key), 127);
+    synthPlayNote( Mozard.keyToNote(key), 100);
   }
 
 }
@@ -42,36 +43,31 @@ void keyReleased(byte key) {
   if ( arp.isRunning() ) {
     arp.removeKey( key );
   } else {
-    envelope.noteOff();
+    synthStopNote(Mozard.keyToNote(key));
   }
-  
+
 }
 
-void receivedMidiNoteOn(byte channel, byte note, byte velocity) {
-  
-   if ( arp.isRunning() ) {
+void receivedMidiNoteOn(byte note, byte velocity) {
+
+  if ( arp.isRunning() ) {
     arp.addKey( note - 36);
-   } else {
-   
-  synthPlayNote(note, velocity);
+  } else {
+
+    synthPlayNote(note, velocity);
   }
 }
 
-void receivedMidiNoteOff(byte channel, byte note, byte velocity) {
-  
-   if ( arp.isRunning() ) {
+void receivedMidiNoteOff(byte note, byte velocity) {
+
+  if ( arp.isRunning() ) {
     arp.removeKey( note - 36 );
   } else {
-    envelope.noteOff();
+    synthStopNote(note);
   }
-  
-}
-
-void buttonLeftPressed() {
-
-  synthChangeMode();
 
 }
+
 
 void buttonRightPressed() {
 
@@ -86,36 +82,38 @@ void buttonRightPressed() {
 
 
 void receivedPitchBend(byte channel, int bend) {
-  synthBend(bend);
+  //synthBend(bend);
 }
+
 
 void setup() {
 
   Mozard.setup();
   Mozard.setKeyPressedCallback( keyPressed );
   Mozard.setKeyReleasedCallback( keyReleased );
-  Mozard.setButtonLeftPressedCallback( buttonLeftPressed );
+  Mozard.setButtonLeftPressedCallback( synthNextMode );
   Mozard.setButtonRightPressedCallback( buttonRightPressed );
   Mozard.setMidiNoteOnCallback( receivedMidiNoteOn );
   Mozard.setMidiNoteOffCallback( receivedMidiNoteOff );
-  Mozard.setPitchBendCallback( receivedPitchBend );
-  
+  Mozard.setControlChangeCallback(ctl);
+ // Mozard.setPitchBendCallback( receivedPitchBend );
+//  MIDI.setHandleControlChange( synthReceiveControlChange);
+
   pinMode(13, OUTPUT);
   digitalWrite(13, LOW);
 
 
- synthSetup();
- 
+  synthSetup();
+
 
 }
 
 
 void updateControl() {
 
-  synthSetOctave( Mozard.getRightPotentiometer() / 120 + 1 );
+
 
   Mozard.updateControl();
-
 
 
   synthUpdateControl();
@@ -124,12 +122,19 @@ void updateControl() {
     arp.interval = (Mozard.getTopLeftPotentiometer()) / 10 ;
     if ( arp.update() ) {
       digitalWrite(13, !digitalRead(13));
-      
+
       if ( arp.noteOn() ) synthPlayNote( Mozard.keyToNote(arp.getKey()) , 127);
-      else envelope.noteOff();
+      // WHAT TO DO WITH THE NEXT LINE?
+      //else envelope.noteOff();
     }
   } else {
-    releaseTime = Mozard.getTopLeftPotentiometer() *4;
+    int newPot = Mozard.getTopLeftPotentiometer();
+    if ( previousPot != newPot ) {
+      previousPot = newPot;
+
+      releaseTime = mtof(newPot >> 3) + 20 ;
+    }
+
   }
 
 }

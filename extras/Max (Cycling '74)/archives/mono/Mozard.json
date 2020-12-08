@@ -1,0 +1,234 @@
+{
+	"pattrstorage" : 	{
+		"name" : "Mozard",
+		"slots" : 		{
+			"1" : 			{
+				"id" : 1,
+				"data" : 				{
+					"pot_destination" : [ "3 modulation type" ],
+					"ctl[2]::value" : [ 0 ],
+					"ctl[6]::value" : [ 0 ],
+					"ctl[1]::value" : [ 30 ],
+					"ctl[3]::value" : [ 43 ],
+					"ctl[4]::value" : [ 0 ],
+					"ctl[7]::value" : [ 0 ],
+					"ctl[8]::value" : [ 0 ],
+					"ctl[9]::value" : [ 127 ],
+					"ctl[10]::value" : [ 28 ],
+					"ctl[11]::value" : [ 94 ],
+					"ctl[12]::value" : [ 18 ],
+					"ctl[13]::value" : [ 11 ],
+					"ctl::value" : [ 58 ],
+					"ctl[5]::value" : [ 0 ],
+					"ctl[14]::value" : [ 106 ],
+					"ctl[15]::value" : [ 53 ],
+					"ctl[16]::value" : [ 108 ]
+				}
+
+			}
+,
+			"2" : 			{
+				"id" : 2,
+				"data" : 				{
+					"pot_destination" : [ "9 modulation param A" ],
+					"ctl[2]::value" : [ 59 ],
+					"ctl[6]::value" : [ 51 ],
+					"ctl[1]::value" : [ 46 ],
+					"ctl[3]::value" : [ 67 ],
+					"ctl[4]::value" : [ 0 ],
+					"ctl[7]::value" : [ 8 ],
+					"ctl[8]::value" : [ 11 ],
+					"ctl[9]::value" : [ 127 ],
+					"ctl[10]::value" : [ 58 ],
+					"ctl[11]::value" : [ 56 ],
+					"ctl[12]::value" : [ 43 ],
+					"ctl[13]::value" : [ 58 ],
+					"ctl::value" : [ 127 ],
+					"ctl[5]::value" : [ 21 ],
+					"ctl[14]::value" : [  ],
+					"ctl[15]::value" : [  ],
+					"ctl[16]::value" : [  ]
+				}
+
+			}
+,
+			"3" : 			{
+				"id" : 3,
+				"data" : 				{
+					"pot_destination" : [ "7 xor" ],
+					"ctl[2]::value" : [ 59 ],
+					"ctl[6]::value" : [ 51 ],
+					"ctl[1]::value" : [ 46 ],
+					"ctl[3]::value" : [ 67 ],
+					"ctl[4]::value" : [ 10 ],
+					"ctl[7]::value" : [ 8 ],
+					"ctl[8]::value" : [ 11 ],
+					"ctl[9]::value" : [ 127 ],
+					"ctl[10]::value" : [ 58 ],
+					"ctl[11]::value" : [ 56 ],
+					"ctl[12]::value" : [ 43 ],
+					"ctl[13]::value" : [ 58 ],
+					"ctl::value" : [ 0 ],
+					"ctl[5]::value" : [ 0 ],
+					"ctl[14]::value" : [  ],
+					"ctl[15]::value" : [  ],
+					"ctl[16]::value" : [  ]
+				}
+
+			}
+,
+			"5" : 			{
+				"id" : 5,
+				"data" : 				{
+					"pot_destination" : [ "9 modulation param A" ],
+					"ctl[2]::value" : [ 0 ],
+					"ctl[6]::value" : [ 0 ],
+					"ctl[1]::value" : [ 25 ],
+					"ctl[3]::value" : [ 25 ],
+					"ctl[4]::value" : [ 0 ],
+					"ctl[7]::value" : [ 11 ],
+					"ctl[8]::value" : [ 32 ],
+					"ctl[9]::value" : [ 127 ],
+					"ctl[10]::value" : [ 25 ],
+					"ctl[11]::value" : [ 0 ],
+					"ctl[12]::value" : [ 18 ],
+					"ctl[13]::value" : [ 100 ],
+					"ctl::value" : [ 49 ],
+					"ctl[5]::value" : [  ],
+					"ctl[14]::value" : [  ],
+					"ctl[15]::value" : [  ],
+					"ctl[16]::value" : [  ]
+				}
+
+			}
+,
+			"6" : 			{
+				"id" : 6,
+				"data" : 				{
+					"pot_destination" : [ "9 modulation param A" ],
+					"ctl[2]::value" : [ 59 ],
+					"ctl[6]::value" : [ 51 ],
+					"ctl[1]::value" : [ 46 ],
+					"ctl[3]::value" : [ 67 ],
+					"ctl[4]::value" : [ 0 ],
+					"ctl[7]::value" : [ 5 ],
+					"ctl[8]::value" : [ 11 ],
+					"ctl[9]::value" : [ 127 ],
+					"ctl[10]::value" : [ 58 ],
+					"ctl[11]::value" : [ 56 ],
+					"ctl[12]::value" : [ 43 ],
+					"ctl[13]::value" : [ 58 ],
+					"ctl::value" : [ 127 ],
+					"ctl[5]::value" : [ 21 ],
+					"ctl[14]::value" : [  ],
+					"ctl[15]::value" : [  ],
+					"ctl[16]::value" : [  ]
+				}
+
+			}
+,
+			"13" : 			{
+				"id" : 13,
+				"data" : 				{
+					"pot_destination" : [ "9 modulation param A" ],
+					"ctl[2]::value" : [ 52 ],
+					"ctl[6]::value" : [ 43 ],
+					"ctl[1]::value" : [ 25 ],
+					"ctl[3]::value" : [ 25 ],
+					"ctl[4]::value" : [ 0 ],
+					"ctl[7]::value" : [ 35 ],
+					"ctl[8]::value" : [ 32 ],
+					"ctl[9]::value" : [ 16 ],
+					"ctl[10]::value" : [ 127 ],
+					"ctl[11]::value" : [ 91 ],
+					"ctl[12]::value" : [ 64 ],
+					"ctl[13]::value" : [ 100 ],
+					"ctl::value" : [ 49 ],
+					"ctl[5]::value" : [  ],
+					"ctl[14]::value" : [  ],
+					"ctl[15]::value" : [  ],
+					"ctl[16]::value" : [  ]
+				}
+
+			}
+,
+			"14" : 			{
+				"id" : 14,
+				"data" : 				{
+					"pot_destination" : [ "9 modulation param A" ],
+					"ctl[2]::value" : [ 0 ],
+					"ctl[6]::value" : [ 0 ],
+					"ctl[1]::value" : [ 49 ],
+					"ctl[3]::value" : [ 56 ],
+					"ctl[4]::value" : [ 0 ],
+					"ctl[7]::value" : [ 29 ],
+					"ctl[8]::value" : [ 112 ],
+					"ctl[9]::value" : [ 127 ],
+					"ctl[10]::value" : [ 38 ],
+					"ctl[11]::value" : [ 54 ],
+					"ctl[12]::value" : [ 30 ],
+					"ctl[13]::value" : [ 0 ],
+					"ctl::value" : [ 55 ],
+					"ctl[5]::value" : [ 0 ],
+					"ctl[14]::value" : [  ],
+					"ctl[15]::value" : [  ],
+					"ctl[16]::value" : [  ]
+				}
+
+			}
+,
+			"15" : 			{
+				"id" : 15,
+				"data" : 				{
+					"pot_destination" : [ "9 modulation param A" ],
+					"ctl[2]::value" : [ 52 ],
+					"ctl[6]::value" : [ 43 ],
+					"ctl[1]::value" : [ 25 ],
+					"ctl[3]::value" : [ 25 ],
+					"ctl[4]::value" : [ 0 ],
+					"ctl[7]::value" : [ 28 ],
+					"ctl[8]::value" : [ 32 ],
+					"ctl[9]::value" : [ 127 ],
+					"ctl[10]::value" : [ 25 ],
+					"ctl[11]::value" : [ 0 ],
+					"ctl[12]::value" : [ 18 ],
+					"ctl[13]::value" : [ 100 ],
+					"ctl::value" : [ 95 ],
+					"ctl[5]::value" : [  ],
+					"ctl[14]::value" : [  ],
+					"ctl[15]::value" : [  ],
+					"ctl[16]::value" : [  ]
+				}
+
+			}
+,
+			"16" : 			{
+				"id" : 16,
+				"data" : 				{
+					"pot_destination" : [ "9 modulation param A" ],
+					"ctl[2]::value" : [ 52 ],
+					"ctl[6]::value" : [ 43 ],
+					"ctl[1]::value" : [ 25 ],
+					"ctl[3]::value" : [ 25 ],
+					"ctl[4]::value" : [ 0 ],
+					"ctl[7]::value" : [ 28 ],
+					"ctl[8]::value" : [ 32 ],
+					"ctl[9]::value" : [ 53 ],
+					"ctl[10]::value" : [ 127 ],
+					"ctl[11]::value" : [ 91 ],
+					"ctl[12]::value" : [ 64 ],
+					"ctl[13]::value" : [ 100 ],
+					"ctl::value" : [ 49 ],
+					"ctl[5]::value" : [  ],
+					"ctl[14]::value" : [  ],
+					"ctl[15]::value" : [  ],
+					"ctl[16]::value" : [  ]
+				}
+
+			}
+
+		}
+
+	}
+
+}

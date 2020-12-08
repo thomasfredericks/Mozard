@@ -127,6 +127,10 @@ public:
 		return next(input, Int2Type<FILTER_TYPE>());
 	}
 
+	void reset(){
+		low =  band = 0;
+	}
+
 
 
 
