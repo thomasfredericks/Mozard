@@ -4,10 +4,6 @@
 // Default is 2
 #define MOZARD_TOUCH_SENSITIVITY 2
 
-// MOZARD TODO
-// ===============================
-// DO A MODE WITH SAMPLE PLAYBACK
-
 #include <Mozard.h>
 
 
@@ -96,8 +92,7 @@ void setup() {
   Mozard.setMidiNoteOnCallback( receivedMidiNoteOn );
   Mozard.setMidiNoteOffCallback( receivedMidiNoteOff );
   Mozard.setControlChangeCallback(ctl);
- // Mozard.setPitchBendCallback( receivedPitchBend );
-//  MIDI.setHandleControlChange( synthReceiveControlChange);
+
 
   pinMode(13, OUTPUT);
   digitalWrite(13, LOW);

@@ -61,7 +61,7 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 #include "MozziGuts.h"
 #include "mozzi_rand.h"
 
-
+#include "MozardMidi.h"
 
 
 class MozardNano {
@@ -78,6 +78,8 @@ class MozardNano {
         }
     */
   private:
+
+    MozardMidi midi = MozardMidi(&Serial);
    
 
     bool keys[14]; // 12 keys + 2 buttons
@@ -95,15 +97,16 @@ class MozardNano {
     #define MOZARD_ANALOG_PINS 3
     int analogValues[MOZARD_ANALOG_PINS];
     byte analogPins[MOZARD_ANALOG_PINS] = {6,7,1}; // A, B, C
-    
+    /*
     void (*noteOnCallback)(byte note, byte velocity);
     void (*noteOffCallback)(byte note, byte velocity);
     void (*controlChangeCallback)(byte controller, byte value);
+    */
     void (*keyPressedCallback)(byte key);
     void (*keyReleasedCallback)(byte key);
     void (*buttonLeftPressedCallback)(void);
     void (*buttonRightPressedCallback)(void);
-    
+
     uint8_t readCapacitivePin(int pinToMeasure) {
       // Variables used to translate from Arduino to AVR pin naming
       volatile uint8_t* port;
@@ -208,22 +211,24 @@ class MozardNano {
 
 // http://hinton-instruments.co.uk/reference/midi/protocol/index.htm
 // https://www.midi.org/specifications-old/item/table-1-summary-of-midi-message    
-
+/*
 #define MM_NOTE_OFF 0x08
 #define MM_NOTE_ON 0x09
 #define MM_CTL 0x0B
  byte  midiType;
  uint8_t midiMessageLength = 0;
  byte midiMessage[3];
-
+*/
 
   public:
    void loop() {
 		
 		audioHook();
 
-    // READ MIDI DATA
+    midi.receiveMessages();
 
+    // READ MIDI DATA
+/*
     while ( Serial.available() ) {
       byte extracted = Serial.read();
       if (extracted < 0x80) {
@@ -254,7 +259,7 @@ class MozardNano {
         midiMessageLength = 0;
       }
     }
-
+*/
 
 
    }
@@ -290,15 +295,18 @@ class MozardNano {
 
 
    void setControlChangeCallback(void (*fptr)(byte controller, byte value)) {
-     controlChangeCallback = fptr;
+      midi.setControlChangeCallback(fptr);
+     //controlChangeCallback = fptr;
     }
 
     void setMidiNoteOnCallback(void (*fptr)(byte note, byte velocity)) {
-     noteOnCallback = fptr;
+     //noteOnCallback = fptr;
+      midi.setMidiNoteOnCallback(fptr);
     }
 
      void setMidiNoteOffCallback(void (*fptr)(byte note, byte velocity)) {
-      noteOffCallback = fptr;
+      //noteOffCallback = fptr;
+      midi.setMidiNoteOffCallback(fptr);
     }
 /*
    // void MIDI_Class::setHandlePitchBend 	( 	void(*)(byte channel, int bend)  	fptr	) 	

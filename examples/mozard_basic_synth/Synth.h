@@ -342,6 +342,7 @@ int updateAudio() {
   if ( output > 8000 )  output = 8000;
   if ( output < -8000 )  output = -8000;
 
+
   return output;
 
   /*
