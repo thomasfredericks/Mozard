@@ -41,7 +41,8 @@ class Arpeggiator {
       heldkeysCount = 0;
       notePlaying = false;
     }
-
+     
+     // key values are offset by 1!
     void addKey(byte key) {
       if ( key == 0 ) return;
       for ( byte i = 0; i < ARPEGGIATOR_BUFFER_SIZE ; i++ ) {

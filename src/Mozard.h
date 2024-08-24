@@ -294,17 +294,17 @@ class MozardNano {
     }
 
 
-   void setControlChangeCallback(void (*fptr)(byte controller, byte value)) {
+   void setControlChangeCallback(void (*fptr)(byte channel,byte controller, byte value)) {
       midi.setControlChangeCallback(fptr);
      //controlChangeCallback = fptr;
     }
 
-    void setMidiNoteOnCallback(void (*fptr)(byte note, byte velocity)) {
+    void setMidiNoteOnCallback(void (*fptr)(byte channel,byte note, byte velocity)) {
      //noteOnCallback = fptr;
       midi.setMidiNoteOnCallback(fptr);
     }
 
-     void setMidiNoteOffCallback(void (*fptr)(byte note, byte velocity)) {
+     void setMidiNoteOffCallback(void (*fptr)(byte channel,byte note)) {
       //noteOffCallback = fptr;
       midi.setMidiNoteOffCallback(fptr);
     }
@@ -385,6 +385,11 @@ public:
 	uint8_t  keyToNote(uint8_t  key) {
     	return octave * 12 + key -1;
     }
+  
+
+  uint8_t  noteToKey(byte  note) {
+      return (note % 12) + 1; 
+  }
 
 	int getTopLeftPotentiometer() {
       return analogValues[0];
