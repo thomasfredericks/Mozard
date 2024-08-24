@@ -2,10 +2,10 @@
 
 Mozard is a miniature digital synthesizer based on Mozzi and an Arduino Nano ATMEGA328p board.
 
-Installation, building and usage instructions are all here: http://www.tofstuff.com/Mozard
+The circuit and BOM can be found in the extras/circuit folder.
 
-The circuit can be found in the extras/circuit folder.
+More information comming soon.
 
-![alt text](http://www.tofstuff.com/uploads/Mozard/mozard_kidzlab_complete.jpg "Mozard Kidzlab Synth")
+![A picture of the Mozard](mozard.jpg "Mozard Kidzlab Synth")
 
 
