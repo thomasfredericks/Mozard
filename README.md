@@ -4,6 +4,14 @@ Mozard is a miniature digital synthesizer based on Mozzi and an Arduino Nano ATM
 
 ![A picture of the Mozard](extras/medias/mozard.jpg "Mozard Kidzlab Synth")
 
+## Usage
+
+The Mozard changes behavior when the arpeggiator is deactivated or activated. When in arpeggiator mode, the LED on the Arduino blinks in sync with the arpeggiator interval.
+
+![How to use the Mozard when the arpeggiator is deactivated](extras/medias/instructions_arp-deactivated.png)
+
+![How to use the Mozard when the arpeggiator is activated](extras/medias/instructions_arp-activated.png)
+
 ## Hardware
 
 The circuit and Bill Of Materials can be found in the extras/circuit folder.

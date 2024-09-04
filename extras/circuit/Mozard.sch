@@ -3910,7 +3910,7 @@ Commonly used for small ceramic capacitors. Like our 0.1uF (http://www.sparkfun.
 <part name="U$12" library="TOF" deviceset="PCB-TOUCHPAD-1-PIN" device=""/>
 <part name="U$13" library="TOF" deviceset="PCB-TOUCHPAD-1-PIN" device=""/>
 <part name="U$14" library="TOF" deviceset="PCB-TOUCHPAD-1-PIN" device=""/>
-<part name="R1" library="adafruit" deviceset="R-US_" device="0204/7" value="100k"/>
+<part name="R1" library="adafruit" deviceset="R-US_" device="0204/7" value="3.9k"/>
 <part name="SUPPLY3" library="SparkFun-Aesthetics" deviceset="VCC" device=""/>
 <part name="SUPPLY7" library="SparkFun-Aesthetics" deviceset="VCC" device=""/>
 <part name="U$15" library="TOF" deviceset="PCB-TOUCHPAD-1-PIN" device=""/>
@@ -3929,6 +3929,8 @@ Commonly used for small ceramic capacitors. Like our 0.1uF (http://www.sparkfun.
 http://creativecommons.org/licenses/by-sa/3.0/</text>
 <text x="177.8" y="139.7" size="1.778" layer="97">LOP Filter and Buffer</text>
 <text x="152.4" y="189.23" size="1.778" layer="97">MOZZI PWM</text>
+<text x="7.62" y="208.28" size="1.778" layer="97" align="top-left">CHANGES:
+-2024/09/03: Changed R1 from 100k to 3.9k to reduce noise when speaker is not used</text>
 </plain>
 <instances>
 <instance part="GND13" gate="1" x="187.96" y="166.37" smashed="yes">
