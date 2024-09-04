@@ -28,8 +28,16 @@ Oscil<SIN2048_NUM_CELLS, CONTROL_RATE> controlLfo(SIN2048_DATA);
 
 
 int potBPrevious = -1;
+/*
+#include <Sample.h> // Sample template
+#include <samples/burroughs1_18649_int8.h>
+#include <samples/bamboo/bamboo_00_2048_int8.h> // wavetable data
 
-#define MODES 4
+// use: Sample <table_size, update_rate> SampleName (wavetable)
+Sample <BURROUGHS1_18649_NUM_CELLS, AUDIO_RATE> aSample(BURROUGHS1_18649_DATA);
+Sample <BAMBOO_00_2048_NUM_CELLS, AUDIO_RATE>aBamboo0(BAMBOO_00_2048_DATA);
+*/
+#define MODES 7
 uint8_t mode = 0;
 
 StateVariable <LOWPASS> lpf;
@@ -245,17 +253,6 @@ void synthUpdateControl() {
     }
   }
 
-
-
-
-  /*
-    if ( currentMode == 2 ) {
-    lpf.setCutoffFreq(controlLfo.next() / 2 + 64);
-    } else {
-    lpf.setCutoffFreq(potB >> 3 + 10);
-    }
-  */
-
 }
 
 void synthStopNote(byte note) {
@@ -345,43 +342,6 @@ int updateAudio() {
 
   return output;
 
-  /*
-    Voice* v = voices;
-
-    Q15n16 vibrato = (Q15n16) (vibratoAmount) * lfo.next();
-
-    int currentSample = v->oscillator.phMod(vibrato) + sub.next();
-
-
-
-
-    if ( xorAmount > 0 ) {
-      //int xorAmountInt = (xorAmount << 2) ; //int xorAmountInt = (xorAmount << 7) | xorAmount;
-      //currentSample = currentSample ^ (xorAmountInt);
-      //currentSample = (((currentSample>>7) ^ xorAmount)<<7) + (currentSample & 127);
-      int xorAmountInt = (xorAmount << 7) | xorAmount ;
-      currentSample = currentSample ^ xorAmountInt;
-    }
-
-    currentSample = lpf.next( currentSample  >> 4  ); //currentSample = lpf.next( currentSample >> 9 );
-
-    //    unsigned char xorAmt = floor(modulation * 255);
-    //    return (int) ((osc.next()^xorAmt) * gain) >> 3;
-
-
-
-    currentSample *=  v->envelope.next()  ;
-
-
-
-
-
-
-
-    return currentSample;
-
-    //return (int) (currentSample) >> 3;
-  */
 
 
 }
