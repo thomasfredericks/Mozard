@@ -382,6 +382,14 @@ protected:
 
 public:
 
+    uint8_t  getKeyPressedCount() {
+      uint8_t keyCount = 0;
+      for ( uint8_t i =0; i < 12; i++) {
+        if (keys[i] == 1) keyCount = keyCount + 1;
+      }
+      return keyCount;
+    }
+
 	uint8_t  keyToNote(uint8_t  key) {
     	return octave * 12 + key -1;
     }
