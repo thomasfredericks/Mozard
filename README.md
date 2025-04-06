@@ -1,6 +1,14 @@
 # Mozard
 
-Mozard is a miniature digital synthesizer based on Mozzi and an Arduino Nano ATMEGA328p board.
+Mozard is a miniature, open-source digital synthesizer based on the Mozzi audio library and an Arduino Nano (ATmega328p) board.
+
+- 12 capacitive touch pads (one full octave)
+- 6 different sound algorithms
+- MIDI input support
+- Octave control via potentiometer
+- Volume control via potentiometer
+- Built-in arpeggiator
+- Decay and arpeggiator speed control
 
 ![A picture of the Mozard](extras/medias/mozard.jpg "Mozard Kidzlab Synth")
 
